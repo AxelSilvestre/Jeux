@@ -46,5 +46,6 @@ public class Case {
 	public void setPlayable(boolean playable) {
 		this.playable = playable;
 	}
+	
 
 }
