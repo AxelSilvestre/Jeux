@@ -18,42 +18,42 @@ public class Tableau {
 	}
 	
 	public void setBeginingPions(){
-		getCase(new Position(0, 0)).setPion(new Piontest(Couleur.NOIR, Type.TOUR));
-		getCase(new Position(1, 0)).setPion(new Piontest(Couleur.NOIR, Type.CAVALIER));
-		getCase(new Position(2, 0)).setPion(new Piontest(Couleur.NOIR, Type.FOU));
-		getCase(new Position(3, 0)).setPion(new Piontest(Couleur.NOIR, Type.REINE));
-		getCase(new Position(4, 0)).setPion(new Piontest(Couleur.NOIR, Type.ROI));
-		getCase(new Position(5, 0)).setPion(new Piontest(Couleur.NOIR, Type.FOU));
-		getCase(new Position(6, 0)).setPion(new Piontest(Couleur.NOIR, Type.CAVALIER));
-		getCase(new Position(7, 0)).setPion(new Piontest(Couleur.NOIR, Type.TOUR));
+		getCase(new Position(0, 0)).setPion(new Pion(Couleur.NOIR, Type.TOUR));
+		getCase(new Position(1, 0)).setPion(new Pion(Couleur.NOIR, Type.CAVALIER));
+		getCase(new Position(2, 0)).setPion(new Pion(Couleur.NOIR, Type.FOU));
+		getCase(new Position(3, 0)).setPion(new Pion(Couleur.NOIR, Type.REINE));
+		getCase(new Position(4, 0)).setPion(new Pion(Couleur.NOIR, Type.ROI));
+		getCase(new Position(5, 0)).setPion(new Pion(Couleur.NOIR, Type.FOU));
+		getCase(new Position(6, 0)).setPion(new Pion(Couleur.NOIR, Type.CAVALIER));
+		getCase(new Position(7, 0)).setPion(new Pion(Couleur.NOIR, Type.TOUR));
 		
-		getCase(new Position(0, 1)).setPion(new Piontest(Couleur.NOIR, Type.PION));
-		getCase(new Position(1, 1)).setPion(new Piontest(Couleur.NOIR, Type.PION));
-		getCase(new Position(2, 1)).setPion(new Piontest(Couleur.NOIR, Type.PION));
-		getCase(new Position(3, 1)).setPion(new Piontest(Couleur.NOIR, Type.PION));
-		getCase(new Position(4, 1)).setPion(new Piontest(Couleur.NOIR, Type.PION));
-		getCase(new Position(5, 1)).setPion(new Piontest(Couleur.NOIR, Type.PION));
-		getCase(new Position(6, 1)).setPion(new Piontest(Couleur.NOIR, Type.PION));
-		getCase(new Position(7, 1)).setPion(new Piontest(Couleur.NOIR, Type.PION));
+		getCase(new Position(0, 1)).setPion(new Pion(Couleur.NOIR, Type.PION));
+		getCase(new Position(1, 1)).setPion(new Pion(Couleur.NOIR, Type.PION));
+		getCase(new Position(2, 1)).setPion(new Pion(Couleur.NOIR, Type.PION));
+		getCase(new Position(3, 1)).setPion(new Pion(Couleur.NOIR, Type.PION));
+		getCase(new Position(4, 1)).setPion(new Pion(Couleur.NOIR, Type.PION));
+		getCase(new Position(5, 1)).setPion(new Pion(Couleur.NOIR, Type.PION));
+		getCase(new Position(6, 1)).setPion(new Pion(Couleur.NOIR, Type.PION));
+		getCase(new Position(7, 1)).setPion(new Pion(Couleur.NOIR, Type.PION));
 		
 		
-		getCase(new Position(0, 6)).setPion(new Piontest(Couleur.BLANC, Type.PION));
-		getCase(new Position(1, 6)).setPion(new Piontest(Couleur.BLANC, Type.PION));
-		getCase(new Position(2, 6)).setPion(new Piontest(Couleur.BLANC, Type.PION));
-		getCase(new Position(3, 6)).setPion(new Piontest(Couleur.BLANC, Type.PION));
-		getCase(new Position(4, 6)).setPion(new Piontest(Couleur.BLANC, Type.PION));
-		getCase(new Position(5, 6)).setPion(new Piontest(Couleur.BLANC, Type.PION));
-		getCase(new Position(6, 6)).setPion(new Piontest(Couleur.BLANC, Type.PION));
-		getCase(new Position(7, 6)).setPion(new Piontest(Couleur.BLANC, Type.PION));
+		getCase(new Position(0, 6)).setPion(new Pion(Couleur.BLANC, Type.PION));
+		getCase(new Position(1, 6)).setPion(new Pion(Couleur.BLANC, Type.PION));
+		getCase(new Position(2, 6)).setPion(new Pion(Couleur.BLANC, Type.PION));
+		getCase(new Position(3, 6)).setPion(new Pion(Couleur.BLANC, Type.PION));
+		getCase(new Position(4, 6)).setPion(new Pion(Couleur.BLANC, Type.PION));
+		getCase(new Position(5, 6)).setPion(new Pion(Couleur.BLANC, Type.PION));
+		getCase(new Position(6, 6)).setPion(new Pion(Couleur.BLANC, Type.PION));
+		getCase(new Position(7, 6)).setPion(new Pion(Couleur.BLANC, Type.PION));
 		
-		getCase(new Position(0, 7)).setPion(new Piontest(Couleur.BLANC, Type.TOUR));
-		getCase(new Position(1, 7)).setPion(new Piontest(Couleur.BLANC, Type.CAVALIER));
-		getCase(new Position(2, 7)).setPion(new Piontest(Couleur.BLANC, Type.FOU));
-		getCase(new Position(3, 7)).setPion(new Piontest(Couleur.BLANC, Type.REINE));
-		getCase(new Position(4, 7)).setPion(new Piontest(Couleur.BLANC, Type.ROI));
-		getCase(new Position(5, 7)).setPion(new Piontest(Couleur.BLANC, Type.FOU));
-		getCase(new Position(6, 7)).setPion(new Piontest(Couleur.BLANC, Type.CAVALIER));
-		getCase(new Position(7, 7)).setPion(new Piontest(Couleur.BLANC, Type.TOUR));
+		getCase(new Position(0, 7)).setPion(new Pion(Couleur.BLANC, Type.TOUR));
+		getCase(new Position(1, 7)).setPion(new Pion(Couleur.BLANC, Type.CAVALIER));
+		getCase(new Position(2, 7)).setPion(new Pion(Couleur.BLANC, Type.FOU));
+		getCase(new Position(3, 7)).setPion(new Pion(Couleur.BLANC, Type.REINE));
+		getCase(new Position(4, 7)).setPion(new Pion(Couleur.BLANC, Type.ROI));
+		getCase(new Position(5, 7)).setPion(new Pion(Couleur.BLANC, Type.FOU));
+		getCase(new Position(6, 7)).setPion(new Pion(Couleur.BLANC, Type.CAVALIER));
+		getCase(new Position(7, 7)).setPion(new Pion(Couleur.BLANC, Type.TOUR));
 		
 		
 	}

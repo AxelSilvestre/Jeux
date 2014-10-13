@@ -3,7 +3,7 @@ package fr.sedara.Echec;
 public class Case {
 	
 	private Position position;
-	private Piontest pion;
+	private Pion pion;
 	
 	public Case(){
 		this.position = null;
@@ -28,10 +28,10 @@ public class Case {
 	public void setPosition(Position position) {
 		this.position = position;
 	}
-	public Piontest getPion() {
+	public Pion getPion() {
 		return pion;
 	}
-	public void setPion(Piontest pion) {
+	public void setPion(Pion pion) {
 		this.pion = pion;
 	}
 

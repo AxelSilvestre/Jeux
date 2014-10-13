@@ -1,5 +1,8 @@
 package fr.sedara.Echec;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pion {
 	
 	private Couleur couleur;
@@ -34,6 +37,29 @@ public class Pion {
 					break;
 		}
 		return str;
+	}
+	
+	public List<Case> getAvailableMoves(Case casee){
+		List<Case> list = new ArrayList<>();
+		
+		switch (this.type){
+		case PION : if(this.couleur == Couleur.BLANC)
+					break;
+		case FOU : ;
+					break;
+		case TOUR : ;
+					break;
+		case REINE : ;
+					break;
+		case ROI : ;
+					break;
+		case CAVALIER : ;
+					break;
+		}
+		
+		
+		
+		return list;
 	}
 
 	
