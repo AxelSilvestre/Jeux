@@ -7,12 +7,12 @@ public class Pion {
 	
 	private Couleur couleur;
 	private Type type;
-	private boolean pionPlayed;
+	private boolean played;	
 	
 	public Pion(Couleur couleur, Type type){
 		this.couleur = couleur;
 		this.type = type;
-		this.pionPlayed = false;
+		this.played = false;
 	}
 	
 	public String toString(){
@@ -77,12 +77,12 @@ public class Pion {
 		this.couleur = couleur;
 	}
 
-	public boolean isPionPlayed() {
-		return pionPlayed;
+	public boolean isPlayed() {
+		return played;
 	}
 
-	public void setPionPlayed(boolean pionPlayed) {
-		this.pionPlayed = pionPlayed;
+	public void setPionPlayed(boolean played) {
+		this.played = played;
 	}
 
 }
