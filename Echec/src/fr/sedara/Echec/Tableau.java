@@ -1,5 +1,7 @@
 package fr.sedara.Echec;
 
+import java.util.List;
+
 public class Tableau {
 	
 	private Case[][] tableau = new Case[8][8];
@@ -69,6 +71,10 @@ public class Tableau {
 		str += "\n****************************************************************";
 		return str;
 		
+	}
+	
+	public List<Case> getRelativeCasesWithPion(Case casee){
+		return null;
 	}
 
 }

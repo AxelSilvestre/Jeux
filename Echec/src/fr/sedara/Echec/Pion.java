@@ -41,19 +41,76 @@ public class Pion {
 	
 	public List<Case> getAvailableMoves(Case casee){
 		List<Case> list = new ArrayList<>();
+		List<Position> positionList = new RelativeMoves(this.couleur, this.type).getRelativeMoves();
 		
 		switch (this.type){
-		case PION : if(this.couleur == Couleur.BLANC)
+		case PION : 
+						for(Position position : positionList){
+						Case caseTemp = Echec.tableau.getCase(new Position(casee.getPosition().getX()+position.getX(),casee.getPosition().getY()+position.getY()));
+						if(caseTemp.getPion().getCouleur() != this.couleur){
+						if(position.equals(new Position(0, -2)) && !this.isPlayed() && this.couleur == Couleur.BLANC){
+							list.add(caseTemp);
+						}
+						else if(position.equals(new Position(0, 2)) && !this.isPlayed() && this.couleur == Couleur.NOIR)
+							list.add(caseTemp);
+						}
+						else if((position.equals(new Position(-1, -1)) || position.equals(new Position(1, -1))) && this.couleur == Couleur.BLANC){
+							if(caseTemp.getPion() != null)
+								list.add(caseTemp);
+						}else if((position.equals(new Position(1, 1)) || position.equals(new Position(-1, 1))) && this.couleur == Couleur.NOIR){
+							if(caseTemp.getPion() != null)
+								list.add(caseTemp);
+						}
+						else
+							list.add(caseTemp);
+						}				
+					
+
 					break;
-		case FOU : ;
+		case FOU : for(Position position : positionList){
+						Case caseTemp = Echec.tableau.getCase(new Position(casee.getPosition().getX(),casee.getPosition().getY()));
+						try{
+						while(true){
+							caseTemp = Echec.tableau.getCase(new Position(caseTemp.getPosition().getX()+position.getX(),caseTemp.getPosition().getY()+position.getY()));
+							if(caseTemp.getPion() == null)
+								list.add(caseTemp);
+							else{
+								if(caseTemp.getPion().getCouleur() == this.couleur)
+									break;
+								if(caseTemp.getPion().getCouleur() != this.couleur){
+									list.add(caseTemp);
+									break;
+								}
+							}
+						}
+						}catch(ArrayIndexOutOfBoundsException e){break;}
+					}
 					break;
-		case TOUR : ;
+		case TOUR : for(Position position : positionList){
+					Case caseTemp = Echec.tableau.getCase(new Position(casee.getPosition().getX(),casee.getPosition().getY()));
+						try{
+							while(true){
+								caseTemp = Echec.tableau.getCase(new Position(caseTemp.getPosition().getX()+position.getX(),caseTemp.getPosition().getY()+position.getY()));
+								if(caseTemp.getPion() == null)
+									list.add(caseTemp);
+								else{
+									if(caseTemp.getPion().getCouleur() == this.couleur)
+										break;
+									if(caseTemp.getPion().getCouleur() != this.couleur){
+										list.add(caseTemp);
+										break;
+									}
+								}
+							}
+						}catch(ArrayIndexOutOfBoundsException e){break;}
+					}
 					break;
-		case REINE : ;
-					break;
+
 		case ROI : ;
 					break;
 		case CAVALIER : ;
+					break;
+		case REINE : ;
 					break;
 		}
 		

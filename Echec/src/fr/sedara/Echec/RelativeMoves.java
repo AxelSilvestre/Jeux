@@ -8,12 +8,21 @@ public class RelativeMoves {
 	private List<Position> relativeMoves = new ArrayList<>();
 	
 	public RelativeMoves(Couleur couleur, Type type){
-		if(couleur == Couleur.BLANC){
+		
 			switch (type){
-			case PION : relativeMoves.add(new Position(0,-2));
-			relativeMoves.add(new Position(0,-1));
-			relativeMoves.add(new Position(-1,-1));
-			relativeMoves.add(new Position(+1,-1));
+			case PION : if(couleur == Couleur.BLANC){
+				relativeMoves.add(new Position(0,-2));
+				relativeMoves.add(new Position(0,-1));
+				relativeMoves.add(new Position(-1,-1));
+				relativeMoves.add(new Position(1,-1));
+			}
+			if(couleur == Couleur.NOIR){
+				relativeMoves.add(new Position(0,2));
+				relativeMoves.add(new Position(0,1));
+				relativeMoves.add(new Position(-1,1));
+				relativeMoves.add(new Position(1,1));
+			}
+
 				break;
 			case FOU : relativeMoves.add(new Position(-1,-1));
 			relativeMoves.add(new Position(+1,+1));
@@ -34,7 +43,16 @@ public class RelativeMoves {
 			relativeMoves.add(new Position(-1,+1));
 			relativeMoves.add(new Position(+1,-1));
 				break;
-			case CAVALIER : relativeMoves.add(new Position(0,-1)); // TODO
+			case CAVALIER : relativeMoves.add(new Position(1,2));
+			relativeMoves.add(new Position(2,1));
+			relativeMoves.add(new Position(2,-1));
+			relativeMoves.add(new Position(1,-2));
+			relativeMoves.add(new Position(-1,-2));
+			relativeMoves.add(new Position(-2,-1));
+			relativeMoves.add(new Position(-2,1));
+			relativeMoves.add(new Position(-1,2));
+				break;
+			case REINE : relativeMoves.add(new Position(0,-1));
 			relativeMoves.add(new Position(0,+1));
 			relativeMoves.add(new Position(-1,0));
 			relativeMoves.add(new Position(+1,0));
@@ -43,12 +61,8 @@ public class RelativeMoves {
 			relativeMoves.add(new Position(-1,+1));
 			relativeMoves.add(new Position(+1,-1));
 				break;
-			case REINE : ;
-				break;
 			}
 		}
-	}
-
 	public List<Position> getRelativeMoves() {
 		return relativeMoves;
 	}
