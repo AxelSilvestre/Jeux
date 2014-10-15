@@ -36,5 +36,6 @@ public class Case {
 	public void setSigne(Signe signe) {
 		this.signe = signe;
 	}	
+	
 
 }

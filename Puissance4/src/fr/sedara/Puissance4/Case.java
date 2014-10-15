@@ -39,5 +39,4 @@ public class Case {
 		this.couleur = couleur;
 	}
 
-
 }
