@@ -7,7 +7,9 @@ public class Pion {
 	
 	private Couleur couleur;
 	private Type type;
-	private boolean played;	
+	private boolean played;
+	private boolean echec;
+	private boolean math;
 	
 	public Pion(Couleur couleur, Type type){
 		this.couleur = couleur;
@@ -44,8 +46,9 @@ public class Pion {
 		List<Position> positionList = new RelativeMoves(this.couleur, this.type).getRelativeMoves();
 		
 		switch (this.type){
-		case PION : 
+		case PION : 	
 						for(Position position : positionList){
+						try{
 						Case caseTemp = Echec.tableau.getCase(new Position(casee.getPosition().getX()+position.getX(),casee.getPosition().getY()+position.getY()));
 						if(caseTemp.getPion().getCouleur() != this.couleur){
 						if(position.equals(new Position(0, -2)) && !this.isPlayed() && this.couleur == Couleur.BLANC){
@@ -63,11 +66,16 @@ public class Pion {
 						}
 						else
 							list.add(caseTemp);
+						}catch(ArrayIndexOutOfBoundsException e){};
 						}				
-					
+		
 
 					break;
-		case FOU : for(Position position : positionList){
+		case REINE :
+		case TOUR : 
+		case FOU : 
+					for(Position position : positionList){
+						try{
 						Case caseTemp = Echec.tableau.getCase(new Position(casee.getPosition().getX(),casee.getPosition().getY()));
 						try{
 						while(true){
@@ -84,34 +92,32 @@ public class Pion {
 							}
 						}
 						}catch(ArrayIndexOutOfBoundsException e){break;}
-					}
-					break;
-		case TOUR : for(Position position : positionList){
-					Case caseTemp = Echec.tableau.getCase(new Position(casee.getPosition().getX(),casee.getPosition().getY()));
-						try{
-							while(true){
-								caseTemp = Echec.tableau.getCase(new Position(caseTemp.getPosition().getX()+position.getX(),caseTemp.getPosition().getY()+position.getY()));
-								if(caseTemp.getPion() == null)
-									list.add(caseTemp);
-								else{
-									if(caseTemp.getPion().getCouleur() == this.couleur)
-										break;
-									if(caseTemp.getPion().getCouleur() != this.couleur){
-										list.add(caseTemp);
-										break;
-									}
-								}
-							}
-						}catch(ArrayIndexOutOfBoundsException e){break;}
+					}catch(ArrayIndexOutOfBoundsException e){};
 					}
 					break;
 
-		case ROI : ;
+
+		case CAVALIER : 
+						for(Position position : positionList){
+							try{
+							Case caseTemp = Echec.tableau.getCase(new Position(casee.getPosition().getX()+position.getX(),casee.getPosition().getY()+position.getY()));
+							if(caseTemp.getPion() == null || (caseTemp.getPion() != null && caseTemp.getPion().getCouleur() != this.couleur))
+								list.add(caseTemp);
+							}catch(ArrayIndexOutOfBoundsException e){};
+					}
 					break;
-		case CAVALIER : ;
-					break;
-		case REINE : ;
-					break;
+					
+		case ROI : try{  // TODO
+			Case caseTemp;
+			for(Position position : positionList){
+				caseTemp = Echec.tableau.getCase(new Position(casee.getPosition().getX()+position.getX(),casee.getPosition().getY()+position.getY()));
+				if((caseTemp.getPion() == null || caseTemp.getPion().getCouleur() != this.couleur) && !isEchec(casee) )
+				list.add(caseTemp);
+			}
+				
+		}catch(ArrayIndexOutOfBoundsException e){};
+			break;
+		
 		}
 		
 		
@@ -140,6 +146,57 @@ public class Pion {
 
 	public void setPionPlayed(boolean played) {
 		this.played = played;
+	}
+	
+	public boolean isMath(Case caseOfKing){ // TODO
+		List<List<Case>> listTemp = new ArrayList<>();
+		Case caseTemp;
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				caseTemp = Echec.tableau.getCase(new Position(i, j));
+				if(caseTemp.getPion() != null && caseTemp.getPion().getCouleur() == this.couleur)
+					listTemp.add(getAvailableMoves(caseTemp));					
+			}
+		}
+			for(List<Case> listOfList : listTemp){
+				for(Case caseOfList : listOfList){
+					caseTemp = new Case(caseOfList.getPosition());
+					caseTemp.setPion(caseOfList.getPion());
+					
+					
+				}
+			}
+		
+		
+		return false;
+	}
+
+	public boolean isEchec(Case casee) {
+		echec = false;
+		List<List<Case>> listTemp = new ArrayList<>();
+		Case caseTemp;
+		for(int i=0;i<8;i++){
+			for(int j=0;j<8;j++){
+				caseTemp = Echec.tableau.getCase(new Position(i, j));
+				if(caseTemp.getPion() != null && caseTemp.getPion().getCouleur() != this.couleur)
+					listTemp.add(getAvailableMoves(caseTemp));					
+			}
+		}
+		loop:
+		for(List<Case> listOfList : listTemp){
+			for(Case caseOfList : listOfList){
+				if(caseOfList.equals(casee)){
+					echec = true;
+					break loop;
+				}
+			}
+		}		
+		
+		return echec;
+	}
+
+	public void setEchec(boolean echec) {
+		this.echec = echec;
 	}
 
 }
