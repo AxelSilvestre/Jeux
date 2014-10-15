@@ -3,18 +3,18 @@ package fr.sedara.BatailleNavale;
 public class Case {
 	
 	private Position position;
-	private Bateau bateau;
+	private Type type;
 	private boolean hit;
 
 	public Case(){
 		this.position = null;
-		this.bateau = null;
+		this.type = Type.NULL;
 		this.hit = false;
 	}
 	
 	public Case(Position position){
 		this.position = position;
-		this.bateau = null;
+		this.type = Type.NULL;
 		this.hit = false;
 	}
 	
@@ -23,10 +23,10 @@ public class Case {
 		if(isHit())
 			return"X";
 		
-		if(this.bateau == null)
+		if(this.type == Type.NULL)
 			return " ";
 		else{
-			Type type = this.bateau.getType();
+			Type type = this.type;
 			if(type == Type.CONTRE_TORPILLEUR)
 				return "c";
 			else if(type == Type.TORPILLEUR)
@@ -48,12 +48,12 @@ public class Case {
 		this.position = position;
 	}
 
-	public Bateau getBateau() {
-		return bateau;
+	public Type getType() {
+		return type;
 	}
 
-	public void setBateau(Bateau bateau) {
-		this.bateau = bateau;
+	public void setType(Type type) {
+		this.type = type;
 	}
 	
 	public boolean isHit() {
