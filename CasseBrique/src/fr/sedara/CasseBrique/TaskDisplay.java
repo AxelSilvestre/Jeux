@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
@@ -17,14 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 
-public class TaskDisplay implements Runnable, ActionListener {
+public class TaskDisplay implements Runnable, ActionListener, KeyListener {
 	
 	public static JFrame fenetre;
 	public static JFrame fenetreJLabel;
 	private JMenuItem menuItemAPropos;
 	private JMenuItem menuItemFermer;
 	private JMenuItem menuItemNewGame;
-	private JLabelBrique[][] tableau = new JLabelBrique[9][18];
+	public static JLabelBrique[][] tableau = new JLabelBrique[9][18];
 	private static JButtonRetry buttonRetry = new JButtonRetry();
 	private static JButtonQuit buttonQuit = new JButtonQuit();
 
@@ -37,7 +38,7 @@ public class TaskDisplay implements Runnable, ActionListener {
 		fenetre.setResizable(false);
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("Menu");
-		this.menuItemNewGame = new JMenuItem("Nouvelle partie");
+     	this.menuItemNewGame = new JMenuItem("Nouvelle partie");
 		this.menuItemNewGame.addActionListener(this);
 		menu.add(menuItemNewGame);
 		this.menuItemAPropos = new JMenuItem("A propos");
@@ -52,13 +53,15 @@ public class TaskDisplay implements Runnable, ActionListener {
 		buttonGrid.setLayout(new GridLayout(18,9));
 		for(int i=0;i<18;i++){
 			for(int j=0;j<9;j++){
-				this.tableau[j][i] = new JLabelBrique(Terrain.tableau.getBrique(new Position(j,i)));
-				this.tableau[j][i].setBorder(BorderFactory.createLineBorder(Color.black));
-				buttonGrid.add(this.tableau[j][i]);
+				tableau[j][i] = new JLabelBrique(Terrain.tableau.getBrique(new Position(j,i)));
+				tableau[j][i].setBorder(BorderFactory.createLineBorder(Color.black));
+     			buttonGrid.add(tableau[j][i]);
 		}
 		}		
 		fenetre.add(buttonGrid);
+		
 
+			
 		
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setVisible(true);
@@ -79,6 +82,7 @@ public class TaskDisplay implements Runnable, ActionListener {
 		}
 		if(itemSelectionne == this.menuItemNewGame){
 			setBriques();
+			fenetre.addKeyListener(this);
 		return;
 		}
 		if (itemSelectionne == this.menuItemFermer)
@@ -120,9 +124,47 @@ public class TaskDisplay implements Runnable, ActionListener {
 	public void setBriques(){
 		for(int i=0;i<9;i++){
 			for(int j=0;j<18;j++){
-					this.tableau[i][j].setBrique();
+					tableau[i][j].setBrique();
 		}
 	}
 	}
+	
+	public void keyPressed(KeyEvent e) {
+		try{
+		Brique b = Terrain.tableau.getBrique(Terrain.tableau.getBarre().getPosition());
+		Brique dest = new Brique();
+		if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT){
+		
+		if(e.getKeyCode() == KeyEvent.VK_LEFT)
+			dest = Terrain.tableau.getBrique(new Position
+					(Terrain.tableau.getBarre().getPosition().getX()-1,Terrain.tableau.getBarre().getPosition().getY()));		
+		
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+			dest = Terrain.tableau.getBrique(new Position
+					(Terrain.tableau.getBarre().getPosition().getX()+1,Terrain.tableau.getBarre().getPosition().getY()));		
+		
+		Terrain.tableau.getBarre().setPosition(dest.getPosition());			
+		Terrain.tableau.getBrique(Terrain.tableau.getBarre().getPosition()).setHasBar(true);
+		
+		b.setHasBar(false);
+		
+		for(int i=0;i<9;i++){
+			TaskDisplay.tableau[i][17].setBrique();
+		}		
+
+	
+		}
+		}catch(ArrayIndexOutOfBoundsException eout){return;};
+}
+
+public void keyReleased(KeyEvent e) {
+	
+}
+
+public void keyTyped(KeyEvent e) {
+
+}
+	
+
 
 }

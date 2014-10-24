@@ -1,10 +1,11 @@
 package fr.sedara.CasseBrique;
 
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
-public class JLabelBrique extends JLabel{
+public class JLabelBrique extends JLabel {
 	
 	private Brique brique;
 	private final static ImageIcon BRIQUE = new ImageIcon("images/rouge.gif");
@@ -21,11 +22,21 @@ public class JLabelBrique extends JLabel{
 	}
 
 	public void setBrique() {
-		if(this.brique.getState() == 1)
+		if(this.brique.getState() == 1){
 			this.setIcon(BRIQUE);
-		if(this.brique.isHasBar())
+			return;
+		}
+		if(this.brique.isHasBar()){
 			this.setIcon(BARRE);
+			return;
+		}
+		this.setIcon(null);
+		
 	}
+	
+
+
+
 	
 
 }

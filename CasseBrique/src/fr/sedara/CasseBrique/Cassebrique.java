@@ -1,5 +1,6 @@
 package fr.sedara.CasseBrique;
 
+
 import javax.swing.SwingUtilities;
 
 public class Cassebrique {
