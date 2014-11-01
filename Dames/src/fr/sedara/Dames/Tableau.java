@@ -49,21 +49,66 @@ public class Tableau {
 	}
 	
 	
-	public List<Case> getAvailableMoves(Case casee){
+	public List<Case> getAvailableMoves(Case casee, Couleur couleur){
 		List<Case> list = new ArrayList<Case>();
+		int	j = (casee.getCouleur() == Couleur.BLANC || couleur == Couleur.BLANC ? -1 : 1);
+		int count;
 		if(casee.getType() == Type.PION){
 				for(int i=0;i<2;i++){
-					for(int j=0;j<2;j++){
-						Case c = getCase(new Position(casee.getPosition().getX()+relativeMoves[i], casee.getPosition().getY()+relativeMoves[j]));
-						while(c.getCouleur() != casee.getCouleur()){
-							c = getCase(new Position(c.getPosition().getX()+relativeMoves[i], c.getPosition().getY()+relativeMoves[j]));
+					try{
+						Case c = getCase(new Position(casee.getPosition().getX()+relativeMoves[i], casee.getPosition().getY()+j));
+						if(c.getCouleur() == null)
+							list.add(c);
+						else if(c.getCouleur() != casee.getCouleur()){
+							count = 0;
+							while(count<2){
+								c = getCase(new Position(c.getPosition().getX()+relativeMoves[i], c.getPosition().getY()+j));
+								if(c.getCouleur() == null){
+									list.add(c);
+									break;
+								}
+								count++;
+							}
+							
 						}
-					}
+						}catch(ArrayIndexOutOfBoundsException e){};
 				}
-			}
-		
-		
-		return null;
+						
+				}
+		else{				
+			for(int i=0;i<2;i++){
+				for(int k=0;k<2;k++){
+					loop:
+					while(true){
+						try{
+							Case c = getCase(new Position(casee.getPosition().getX()+relativeMoves[i], casee.getPosition().getY()+relativeMoves[k]));
+							if(c.getCouleur() == null)
+								list.add(c);
+							else if(c.getCouleur() != casee.getCouleur()){
+								count = 0;
+								while(count<2){
+									c = getCase(new Position(c.getPosition().getX()+relativeMoves[i], c.getPosition().getY()+relativeMoves[k]));
+									if(c.getCouleur() == null){
+										list.add(c);
+										break loop;
+									}
+									count++;
+								}
+					
+							}
+						}catch(ArrayIndexOutOfBoundsException e){};
+					}
+				
+		}
+			
+		}
+		}
+
+		return list;
 	}
+	
+	
+	
+	
 
 }
