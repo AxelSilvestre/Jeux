@@ -1,17 +1,18 @@
 package fr.sedara.FlyByNight;
 
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 import java.util.Random;
 
 public class Tableau {
 	
 	private Case[][] tableau = new Case[30][30];
 	private Case flyeur;
-	private List<Case> walls;
+//	private List<Case> walls;
 	private float space;
 	private int score;
 	private int count;
+	private boolean aWildGandalfAppears;
 	
 	public Tableau(){
 		for(int i=0;i<30;i++){
@@ -21,10 +22,11 @@ public class Tableau {
 		}
 		this.flyeur = getCase(new Position(5, 5));
 		this.flyeur.setType(Type.FLYEUR);
-		this.walls = new ArrayList<Case>();
-		this.space = 10L;
+//		this.walls = new ArrayList<Case>();
+		this.space = 15L;
 		score = 0;
 		count = 0;
+		aWildGandalfAppears = false;
 	}
 	
 	public Case getCase(Position position){
@@ -46,15 +48,15 @@ public class Tableau {
 	public void setWalls(){
 		Random rand = new Random();
 		for(int i=0;i<30;i++){
-			walls.add(getCase(new Position(29, i)));
 			getCase(new Position(29, i)).setType(Type.MUR);
+//			walls.add(getCase(new Position(29, i)));
 		}
 		int y = rand.nextInt(29);
-		int n = rand.nextInt(5)+ (int) space;
+		int n = (int) space;
 		for(int i=0;i<n;i++){
 			try{
-			getCase(new Position(29, y-i)).setType(null);
-			walls.remove(getCase(new Position(29, y-i)));
+			getCase(new Position(29, (y > n ? y-i : y+i))).setType(null);
+//			walls.remove(getCase(new Position(29, (y > n ? y-i : y+i))));
 			}catch(ArrayIndexOutOfBoundsException e){};
 		}
 		
@@ -62,36 +64,49 @@ public class Tableau {
 	}
 	
 	public void wallsForward(){
-		List<Case> list = new ArrayList<Case>();
-		List<Case> list2 = new ArrayList<Case>();
+//		List<Case> list = new ArrayList<Case>();
+//		List<Case> list2 = new ArrayList<Case>();
+//		
+//		for(Case c : walls){
+//			try{
+//			list2.add(c);
+//			c = getCase(new Position(c.getPosition().getX()-1, c.getPosition().getY()));
+//			list.add(c);
+//			}catch(ArrayIndexOutOfBoundsException e){};
+//			
+//		}
+//		for(Case c : list2){
+//			c.setType(null);
+//			walls.remove(c);
+//		}
+//		
+//		for(Case c : list){
+//			c.setType(Type.MUR);
+//			walls.add(c);
+//		}
 		
-		for(Case c : walls){
-			try{
-			list2.add(c);
-			c = getCase(new Position(c.getPosition().getX()-1, c.getPosition().getY()));
-			list.add(c);
-			}catch(ArrayIndexOutOfBoundsException e){};
-			
-		}
-		for(Case c : list2){
-			c.setType(null);
-			walls.remove(c);
+		Case c;
+		
+		for(int i=0;i<30;i++){
+			for(int j=0;j<30;j++){
+				c = getCase(new Position(i, j));
+				if(c.getType() == Type.MUR){
+					c.setType(null);
+					try{
+					c = getCase(new Position(c.getPosition().getX()-1, c.getPosition().getY()));
+					c.setType(Type.MUR);
+					}catch(ArrayIndexOutOfBoundsException e){};
+				}
+			}
 		}
 		
-		for(Case c : list){
-			c.setType(Type.MUR);
-			walls.add(c);
-		}
+		
 	}
 	
 	public void incrementScore(){
 		for(int i=0;i<30;i++){
 			if(getCase(new Position(4, i)).getType() == Type.MUR){
-				score++;
-				if(space > 0){
-					float d = (float) 0.05;
-					space = space -  d;
-				}					
+				score++;				
 				return;
 			}
 		}
@@ -107,13 +122,24 @@ public class Tableau {
 		else
 			count++;
 		
-		wallsForward();
+		if(score == 100)
+			youShallNotPass();
+		else
+			wallsForward();
+		
 		incrementScore();
 		
-		for(Case c : this.walls){
-			if(this.flyeur.equals(c))
-				return false;
-		}
+		if(space > 2)
+			space = space - (float) 0.05;
+			
+		
+//		for(Case c : this.walls){
+//			if(this.flyeur.equals(c))
+//				return false;
+//		}
+		
+		if(this.flyeur.getType() == Type.MUR)
+			return false;
 		
 		
 		return true;
@@ -134,6 +160,17 @@ public class Tableau {
 
 	public int getScore() {
 		return score;
+	}
+	
+	public void youShallNotPass(){
+		for(int i=0;i<30;i++){
+			getCase(new Position(29, i)).setType(Type.MUR);
+		}
+		aWildGandalfAppears = true;
+	}
+	
+	public boolean isAWildGandalfAppears(){
+		return this.aWildGandalfAppears;
 	}
 	
 

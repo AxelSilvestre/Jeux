@@ -74,11 +74,6 @@ public class TaskDisplay implements Runnable, ActionListener, KeyListener {
 		return;
 		}
 		if(itemSelectionne == this.menuItemNewGame){
-			for(int i=0;i<30;i++){
-				for(int j=0;j<30;j++){
-					tableau[i][j].setIcon();
-				}
-			}
 			
 			fenetre.addKeyListener(this);
 			
@@ -92,9 +87,13 @@ public class TaskDisplay implements Runnable, ActionListener, KeyListener {
 						}
 					}
 					
+					if(FlyByNight.tableau.isAWildGandalfAppears())
+						letsTrollPeople();
+					
 		    		if(!FlyByNight.tableau.win()){
 		    			activateWin();
 		    			timer.cancel();
+		    			timer.purge();
 		    			return;
 		    		}
 		        		
@@ -163,6 +162,17 @@ public class TaskDisplay implements Runnable, ActionListener, KeyListener {
 
 	public void keyTyped(KeyEvent e) {
 	
+	}
+	
+	public void letsTrollPeople(){
+		JFrame trollingFrame = new JFrame("Gandalf is in the place");
+		JLabel trollingLabel = new JLabel("YOU SHALL NOT PASS");
+		trollingFrame.add(trollingLabel);
+		trollingFrame.setEnabled(false);
+		trollingFrame.setResizable(false);
+		trollingFrame.setLocationRelativeTo(null);
+		trollingFrame.setVisible(true);
+		
 	}
 
 
